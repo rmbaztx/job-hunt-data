@@ -5,6 +5,8 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 var db = require("./models");
 
+app.use(express.static("client/build"));
+
 // bodyParser only works because we add these lines
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
