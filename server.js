@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+const path = require("path"); 
 var db = require("./models");
 
 app.use(express.static("client/build"));
@@ -36,12 +37,17 @@ app.post("/api/test", function(req, res) {
             //db.create
         //     return res.json(req.body);
     });
+   
 // POST route for saving a new post
 app.post("/api/posts", function(req, res) {
     db.Post.create(req.body).then(function(dbPost) {
       res.json(dbPost);
     });
-  });
+  }); 
+  
+app.use(function(req, res) { 
+            res.sendFile(path.join(__dirname, "client/build/index.html")); 
+        }); 
     // Syncing our database and logging a message to the user upon success
 
 db.sequelize.sync({ force: false }).then(function() {
